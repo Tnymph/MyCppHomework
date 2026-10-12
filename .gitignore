@@ -361,3 +361,20 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# 忽略 Visual Studio 编译产生的临时文件夹
+[Bb]in/
+[Oo]bj/
+.vs/
+
+# 忽略用户特定的配置文件
+*.user
+*.suo
+
+# 忽略编译生成的中间文件
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.idb
+*.exp
