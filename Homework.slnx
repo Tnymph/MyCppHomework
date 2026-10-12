@@ -3,5 +3,6 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="62226212_李丞韵_Assignment01_t1/62226212_李丞韵_Assignment01_t1.vcxproj" />
+  <Project Path="62226212_李丞韵_Assignment01_t1/62226212_李丞韵_Assignment01_t1.vcxproj" Id="3732d5a0-defb-4977-b384-b53735b3a9be" />
+  <Project Path="62226212_李丞韵_Assignment01_t2/62226212_李丞韵_Assignment01_t2.vcxproj" Id="476e1a12-0d8a-4a61-baee-d3fc00ec1535" />
 </Solution>
