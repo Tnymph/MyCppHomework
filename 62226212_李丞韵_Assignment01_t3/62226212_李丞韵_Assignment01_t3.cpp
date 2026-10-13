@@ -1,27 +1,82 @@
-#include <iostream>
-#include <cmath>
+#include<iostream>
+#include<cmath>
 using namespace std;
 
 int main() {
-	const string n = "\n\n";
-	const int stringSize = 80;
-	char aa[stringSize] = {};
-	char bb[stringSize] = {};
-	char cc[stringSize] = {};
+	//存储点坐标时，依次为xA yA xB yB...
+	const int pointNum = 4;
+	double point[2*pointNum] = {};
 
-	cout << "输入姓名拼音与学号，姓氏和名字间用 1 个空格，姓名与学号间用 1 个英文逗号"<<endl;
-	cout << "例如\"Zhang San,20260001\"，整行最多 79 个字符，不计换行"<< n;
-
-	cin.getline(aa, stringSize);
-	cout << "\n获取到：\n" << aa << n;
-
-	strcpy_s(bb, aa);
-	cout << "经过strcpy_c复制后，得到的bb为：\n" << bb << n;
-
-	for (int i = 0; i < stringSize; i++) {
-		cc[i] = aa[i];
+	const double accuracy = 0.000001;
+	
+	//使用acsii码简化提示词，如'B'为'A' + 1
+	cout << "请依次输入"<<pointNum<<"个点的坐标\n";
+	for (int i = 0; i < pointNum; i++) {
+		cout << (char)('A' + i) << "的x坐标：";
+		cin >> point[2*i];
+		cout << (char)('A' + i) << "的y坐标：";
+		cin >> point[2*i+1];
 	}
-	cout << "经过逐个字符复制后，得到的cc为：\n" << cc << n;
+
+	//检查重合的点
+	for (int i = 0; i < pointNum - 1; i++) {//最后一个点已经被所有点检查过
+		for (int j = i + 1; j < pointNum; j++) {//每个点依次检查其他的点
+			if (abs(point[2*i] - point[2*j]) < accuracy && abs(point[2*i+1] - point[2*j+1]) < accuracy) {
+				cout << "请输入不重合的点";
+				return 0;
+			}
+		}
+	}
+
+	//获取从A出发的AB、AC等向量
+	const int vecNum = pointNum - 1;
+	double vec[2*vecNum] = {};
+	for (int i = 0;i < vecNum; i++) {
+		vec[2*i] = point[2*(i+1)] - point[0];
+		vec[2*i+1] = point[2*(i+1)+1] - point[1];
+	}
+
+	//检验是否存在两向量和等于另一向量，证明是平行四边形
+	double tempVec[2];
+	bool rectangleFlag = false;
+
+	for (int i = 0;i < vecNum; i++) {
+		if (rectangleFlag) {//检测出矩形特征就不必再循环
+			break;
+		}
+
+		for (int j = i + 1; j < vecNum; j++) {
+			if (rectangleFlag) {
+				break;
+			}
+
+			tempVec[0] = vec[2*i] + vec[2*j];//两向量相加，若能得第三向量，则必定为平四
+			tempVec[1] = vec[2*i+1] + vec[2*j+1];
+			for (int k = 0;k < vecNum; k++) {
+				if (rectangleFlag) {
+					break;
+				}
+
+				if (k != i && k != j) {//第一层if验平四，第二层if验邻边垂直
+					if ((abs(tempVec[0] - vec[2*k]) < accuracy) && (abs(tempVec[1] - vec[2*k+1]) < accuracy)) {
+						if (abs((vec[2*i] * vec[2*i] + vec[2*i+1] * vec[2*i+1])
+							+ (vec[2*j] * vec[2*j] + vec[2*j+1] * vec[2*j+1])
+							- (vec[2*k] * vec[2*k] + vec[2*k+1] * vec[2*k+1]))
+							< accuracy) {
+							rectangleFlag = true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if (rectangleFlag) {
+		cout << "矩形";
+	}
+	else {
+		cout << "不是矩形";
+	}
 
 	return 0;
 }
