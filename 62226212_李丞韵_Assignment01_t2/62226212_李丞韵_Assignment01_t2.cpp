@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cmath>
 using namespace std;
 
 int main(){
@@ -21,52 +20,52 @@ int main(){
 
 	int i = 0;
 
-	incomePieceForCalculate = income - incomeStandard[i];
-	if ((incomePieceForCalculate > incomeStandard[i + 1] - incomeStandard[i]) && flag) {
+	if (flag && income > incomeStandard[i + 1]) {
 		tax = tax + (incomeStandard[i + 1] - incomeStandard[i]) * taxRate[i];
 	}
-	else {
-		tax = tax + max(incomePieceForCalculate, 0.0f) * taxRate[i];
+	else if (flag) {
+		incomePieceForCalculate = income - incomeStandard[i];
+		tax = tax + incomePieceForCalculate * taxRate[i];
 		flag = false;
 	}
 	i = i + 1;
 
-	incomePieceForCalculate = income - incomeStandard[i];
-	if ((incomePieceForCalculate > incomeStandard[i + 1] - incomeStandard[i]) && flag) {
+	if (flag && income > incomeStandard[i + 1]) {
 		tax = tax + (incomeStandard[i + 1] - incomeStandard[i]) * taxRate[i];
 	}
-	else {
-		tax = tax + max(incomePieceForCalculate, 0.0f) * taxRate[i];
+	else if (flag) {
+		incomePieceForCalculate = income - incomeStandard[i];
+		tax = tax + incomePieceForCalculate * taxRate[i];
 		flag = false;
 	}
 	i = i + 1;
 
-	incomePieceForCalculate = income - incomeStandard[i];
-	if ((incomePieceForCalculate > incomeStandard[i + 1] - incomeStandard[i]) && flag) {
+	if (flag && income > incomeStandard[i + 1]) {
 		tax = tax + (incomeStandard[i + 1] - incomeStandard[i]) * taxRate[i];
 	}
-	else {
-		tax = tax + max(incomePieceForCalculate, 0.0f) * taxRate[i];
+	else if (flag) {
+		incomePieceForCalculate = income - incomeStandard[i];
+		tax = tax + incomePieceForCalculate * taxRate[i];
 		flag = false;
 	}
 	i = i + 1;
 
-	incomePieceForCalculate = income - incomeStandard[i];
-	if ((incomePieceForCalculate > incomeStandard[i + 1] - incomeStandard[i]) && flag) {
+	if (flag && income > incomeStandard[i + 1]) {
 		tax = tax + (incomeStandard[i + 1] - incomeStandard[i]) * taxRate[i];
 	}
-	else {
-		tax = tax + max(incomePieceForCalculate, 0.0f) * taxRate[i];
+	else if (flag) {
+		incomePieceForCalculate = income - incomeStandard[i];
+		tax = tax + incomePieceForCalculate * taxRate[i];
 		flag = false;
 	}
 	i = i + 1;
 
-	incomePieceForCalculate = income - incomeStandard[i];
-	if ((incomePieceForCalculate > incomeStandard[i + 1] - incomeStandard[i]) && flag) {
+	if (flag && income > incomeStandard[i + 1]) {
 		tax = tax + (incomeStandard[i + 1] - incomeStandard[i]) * taxRate[i];
 	}
-	else {
-		tax = tax + max(incomePieceForCalculate, 0.0f) * taxRate[i];
+	else if (flag) {
+		incomePieceForCalculate = income - incomeStandard[i];
+		tax = tax + incomePieceForCalculate * taxRate[i];
 		flag = false;
 	}
 	
