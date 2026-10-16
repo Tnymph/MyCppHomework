@@ -12,16 +12,17 @@ int main() {
 	//使用acsii码简化提示词，如'B'为'A' + 1
 	cout << "请依次输入"<<pointNum<<"个点的坐标\n";
 	for (int i = 0; i < pointNum; i++) {
-		cout << (char)('A' + i) << "的x坐标：";
+		cout << (char)('A' + i) << "的x坐标(仅可使用0-9和.)：";
 		cin >> point[2*i];
-		cout << (char)('A' + i) << "的y坐标：";
+		cout << (char)('A' + i) << "的y坐标(仅可使用0-9和.)：";
 		cin >> point[2*i+1];
 	}
 
 	//检查重合的点
 	for (int i = 0; i < pointNum - 1; i++) {//最后一个点已经被所有点检查过
 		for (int j = i + 1; j < pointNum; j++) {//每个点依次检查其他的点
-			if (abs(point[2*i] - point[2*j]) < accuracy && abs(point[2*i+1] - point[2*j+1]) < accuracy) {
+			if (abs(point[2*i] - point[2*j]) < accuracy &&
+				abs(point[2*i+1] - point[2*j+1]) < accuracy) {
 				cout << "请输入不重合的点";
 				return 0;
 			}
@@ -41,29 +42,36 @@ int main() {
 	bool rectangleFlag = false;
 
 	for (int i = 0;i < vecNum; i++) {
-		if (rectangleFlag) {//检测出矩形特征就不必再循环
+		//检测出矩形特征就不必再循环
+		if (rectangleFlag) {
 			break;
 		}
 
+		//两向量相加，若能得第三向量，则必定为平四
 		for (int j = i + 1; j < vecNum; j++) {
 			if (rectangleFlag) {
 				break;
 			}
 
-			tempVec[0] = vec[2*i] + vec[2*j];//两向量相加，若能得第三向量，则必定为平四
+			tempVec[0] = vec[2*i] + vec[2*j];
 			tempVec[1] = vec[2*i+1] + vec[2*j+1];
 			for (int k = 0;k < vecNum; k++) {
 				if (rectangleFlag) {
 					break;
 				}
 
-				if (k != i && k != j) {//第一层if验平四，第二层if验邻边垂直
-					if ((abs(tempVec[0] - vec[2*k]) < accuracy) && (abs(tempVec[1] - vec[2*k+1]) < accuracy)) {
+				//第一层if验平四，第二层if验邻边垂直
+				if (k != i && k != j) {
+					if ((abs(tempVec[0] - vec[2*k]) < accuracy) 
+						&& (abs(tempVec[1] - vec[2*k+1]) < accuracy)) {
+
 						if (abs((vec[2*i] * vec[2*i] + vec[2*i+1] * vec[2*i+1])
 							+ (vec[2*j] * vec[2*j] + vec[2*j+1] * vec[2*j+1])
 							- (vec[2*k] * vec[2*k] + vec[2*k+1] * vec[2*k+1]))
 							< accuracy) {
+
 							rectangleFlag = true;
+
 						}
 					}
 				}
@@ -89,6 +97,4 @@ int main() {
 针对可能出现的漏洞进行测试，更贴近程序实际应用时的场景
 用户事先不知道四个点能不能构成矩形，所以有概率碰见极端情况：
 如共线、重合、甚至于输入其他形式的坐标如(一，二)
-所以有必要根据各种极端情况进行测试，
-使算法、程序更加完善，以避免实际运用中造成严重后果
 */
